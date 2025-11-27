@@ -11,15 +11,14 @@
         /* === ДИЗАЙН (Dark/Gold) === */
         :root {
             --bg-color: #000000;
-            --card-bg: #18181b; /* Zinc-900 */
-            --border-color: #27272a; /* Zinc-800 */
-            --accent: #eab308; /* Yellow-500 */
+            --card-bg: #18181b;
+            --border-color: #27272a;
+            --accent: #eab308;
             --text-main: #ffffff;
             --text-sec: #a1a1aa;
         }
 
         body { background-color: var(--bg-color); color: var(--text-main); font-family: -apple-system, sans-serif; height: 100vh; display: flex; justify-content: center; overflow: hidden; margin: 0; }
-        
         #app { width: 100%; max-width: 480px; background-color: #09090b; display: flex; flex-direction: column; position: relative; border-left: 1px solid #222; border-right: 1px solid #222; }
 
         /* Скролл */
@@ -28,73 +27,42 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Карточки */
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+        /* Элементы */
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; margin-bottom: 12px; position: relative; }
         
-        /* Кнопки сайтов */
-        .grid-sites { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
-        .site-btn {
-            background: #111; border: 1px solid var(--border-color); border-radius: 12px; height: 70px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s; position: relative;
-        }
-        .site-btn.active { border-color: var(--accent); background: #222; box-shadow: inset 0 0 15px rgba(234, 179, 8, 0.1); }
-        .site-btn h2 { margin: 0; font-size: 20px; font-weight: 900; }
-        .site-btn span { font-size: 9px; text-transform: uppercase; color: #666; font-weight: bold; margin-top: 2px; }
-        .check-dot { position: absolute; top: 8px; right: 8px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; display: none; box-shadow: 0 0 5px var(--accent); }
-        .site-btn.active .check-dot { display: block; }
-
-        /* Основные кнопки */
-        .btn-main {
-            width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 900; font-size: 14px;
-            text-transform: uppercase; cursor: pointer; letter-spacing: 1px; transition: transform 0.1s;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        .btn-main:active { transform: scale(0.97); }
+        /* Кнопки */
+        .btn-main { width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 900; font-size: 14px; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .bg-yellow { background: var(--accent); color: black; box-shadow: 0 0 20px rgba(234, 179, 8, 0.2); }
         .bg-red { background: #dc2626; color: white; box-shadow: 0 0 20px rgba(220, 38, 38, 0.2); }
-
+        
         /* Инпуты */
         input { background: #000; border: 1px solid #333; color: white; padding: 12px; border-radius: 8px; width: 100%; outline: none; transition: 0.2s; }
         input:focus { border-color: var(--accent); }
+        input:disabled { background: #111; color: #555; border-color: #222; cursor: not-allowed; }
+
+        /* Админские элементы */
+        .admin-only { display: none; }
+        body.is-admin .admin-only { display: block; }
+        .edit-btn { position: absolute; top: 10px; right: 10px; color: var(--accent); cursor: pointer; display: none; }
+        body.is-admin .edit-btn { display: block; }
+
+        /* Сайты */
+        .grid-sites { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .site-btn { background: #111; border: 1px solid var(--border-color); border-radius: 12px; height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+        .site-btn.active { border-color: var(--accent); background: #222; box-shadow: inset 0 0 15px rgba(234, 179, 8, 0.1); }
+        .check-dot { position: absolute; top: 8px; right: 8px; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; display: none; }
+        .site-btn.active .check-dot { display: block; }
 
         /* Меню */
-        .nav-bar {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: #09090b; border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; padding: 12px 0; z-index: 50;
-        }
+        .nav-bar { position: absolute; bottom: 0; left: 0; right: 0; background: #09090b; border-top: 1px solid var(--border-color); display: flex; justify-content: space-around; padding: 12px 0; z-index: 50; }
         .nav-item { background: none; border: none; color: #52525b; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; font-weight: bold; cursor: pointer; }
         .nav-item.active { color: var(--accent); }
-        .nav-item svg { width: 22px; height: 22px; }
 
-        /* Стили Календаря (Новые) */
-        .calendar-day { 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            padding: 8px 4px; border-radius: 12px; min-width: 40px; cursor: pointer;
-        }
-        .calendar-day.active { background: #27272a; border: 1px solid #3f3f46; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .calendar-day span { font-size: 10px; color: #71717a; text-transform: uppercase; font-weight: bold; }
-        .calendar-day h4 { font-size: 16px; font-weight: bold; color: white; margin: 2px 0; }
-        .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); margin-top: 4px; opacity: 0; }
-        .calendar-day.has-task .dot { opacity: 1; }
-
-        /* Стили Табов Планирования */
-        .plan-tabs { display: flex; background: #18181b; padding: 4px; border-radius: 12px; border: 1px solid #27272a; margin-bottom: 20px; }
-        .plan-tab { flex: 1; text-align: center; padding: 8px; font-size: 12px; font-weight: bold; color: #71717a; cursor: pointer; border-radius: 8px; transition: 0.2s; }
-        .plan-tab.active { background: #27272a; color: white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-
-        /* Модальное окно */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.9); z-index: 100;
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: 0.3s;
-        }
+        /* Модалка */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 100; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.3s; }
         .modal-overlay.open { opacity: 1; pointer-events: all; }
         .modal-content { background: #18181b; padding: 24px; border-radius: 20px; width: 85%; max-width: 350px; border: 1px solid #333; text-align: center; transform: scale(0.9); transition: 0.3s; }
         .modal-overlay.open .modal-content { transform: scale(1); }
-
     </style>
 </head>
 <body>
@@ -106,8 +74,8 @@
             <div style="display: flex; gap: 12px; align-items: center;">
                 <div style="width: 42px; height: 42px; background: #27272a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; border: 1px solid #3f3f46;">K</div>
                 <div>
-                    <div style="font-weight: 800; font-size: 16px; letter-spacing: 0.5px;">PRIMA</div>
-                    <div style="font-size: 11px; color: #71717a;">Панель оператора</div>
+                    <div style="font-weight: 800; font-size: 16px;">PRIMA</div>
+                    <div style="font-size: 11px; color: #71717a;" id="role-label">Панель оператора</div>
                 </div>
             </div>
             <div style="text-align: right;">
@@ -118,21 +86,11 @@
 
         <div id="view-pre-shift">
             <div class="grid-sites">
-                <div class="site-btn active" onclick="toggleSite(this)">
-                    <div class="check-dot"></div><h2 style="color: #eab308">C</h2><span>Chaturbate</span>
-                </div>
-                <div class="site-btn active" onclick="toggleSite(this)">
-                    <div class="check-dot"></div><h2 style="color: #ef4444">S</h2><span>Stripchat</span>
-                </div>
-                <div class="site-btn" onclick="toggleSite(this)">
-                    <div class="check-dot"></div><h2 style="color: #3b82f6">C</h2><span>CamSoda</span>
-                </div>
-                <div class="site-btn" onclick="toggleSite(this)">
-                    <div class="check-dot"></div><h2 style="color: #ec4899">C</h2><span>Cum4K</span>
-                </div>
-                <div class="site-btn" style="grid-column: span 2;" onclick="toggleSite(this)">
-                    <div class="check-dot"></div><h2 style="color: #a855f7">J</h2><span>Jasmin</span>
-                </div>
+                <div class="site-btn active" onclick="toggleSite(this)"><div class="check-dot"></div><h2 style="color: #eab308">C</h2><span>Chaturbate</span></div>
+                <div class="site-btn active" onclick="toggleSite(this)"><div class="check-dot"></div><h2 style="color: #ef4444">S</h2><span>Stripchat</span></div>
+                <div class="site-btn" onclick="toggleSite(this)"><div class="check-dot"></div><h2 style="color: #3b82f6">C</h2><span>CamSoda</span></div>
+                <div class="site-btn" onclick="toggleSite(this)"><div class="check-dot"></div><h2 style="color: #ec4899">C</h2><span>Cum4K</span></div>
+                <div class="site-btn" style="grid-column: span 2;" onclick="toggleSite(this)"><div class="check-dot"></div><h2 style="color: #a855f7">J</h2><span>Jasmin</span></div>
             </div>
             <button class="btn-main bg-yellow" onclick="startShift()">
                 <i data-lucide="play"></i> НАЧАТЬ СМЕНУ
@@ -146,11 +104,6 @@
                 </div>
                 <div id="timer" style="font-size: 56px; font-weight: 900; font-family: monospace; letter-spacing: -2px;">00:00:00</div>
             </div>
-
-            <div class="card" style="text-align: center; color: #71717a; font-size: 12px;">
-                Не забудьте делать скриншоты каждые 30 минут для отчета.
-            </div>
-
             <button class="btn-main bg-red" onclick="requestFinish()">
                 <i data-lucide="square"></i> ЗАКОНЧИТЬ СМЕНУ
             </button>
@@ -160,69 +113,35 @@
     <div id="tab-plan" class="content no-scrollbar">
         <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">Планирование</h1>
         
-        <div class="plan-tabs">
-            <div class="plan-tab active" onclick="switchPlanTab('content')">Контент-план</div>
-            <div class="plan-tab" onclick="switchPlanTab('schedule')">График смен</div>
-        </div>
+        <div class="card" style="position: relative; padding: 24px; overflow: hidden;">
+            <i class="edit-btn" data-lucide="pencil" onclick="editPlanDetails()"></i> <h2 style="font-size: 28px; font-weight: bold; margin: 0;">Сегодня</h2>
+            <p style="color: #71717a; margin-bottom: 20px;" id="current-date">Дата</p>
 
-        <div class="card" style="padding: 12px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <div style="display: flex; align-items: center; gap: 6px; font-weight: bold;">
-                    <i data-lucide="calendar" width="16"></i> Расписание
-                </div>
-                <div style="font-size: 10px; color: #71717a;">Ноябрь 2025</div>
+            <div style="margin-bottom: 20px;">
+                <div style="font-size: 10px; font-weight: bold; color: #52525b; margin-bottom: 5px;">ТИП КОНТЕНТА</div>
+                <span id="plan-type" style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold;">Видео контент</span>
             </div>
-            
-            <div style="display: flex; justify-content: space-between;">
-                <div class="calendar-day"><span>ПН</span><h4>24</h4><div class="dot"></div></div>
-                <div class="calendar-day has-task"><span>ВТ</span><h4>25</h4><div class="dot"></div></div>
-                <div class="calendar-day active has-task"><span>СР</span><h4>26</h4><div class="dot"></div></div>
-                <div class="calendar-day"><span>ЧТ</span><h4>27</h4><div class="dot"></div></div>
-                <div class="calendar-day"><span>ПТ</span><h4>28</h4><div class="dot"></div></div>
-                <div class="calendar-day"><span>СБ</span><h4>29</h4><div class="dot"></div></div>
-            </div>
-        </div>
 
-        <div id="plan-content-view">
-            <div class="card" style="position: relative; padding: 24px; overflow: hidden;">
-                <div style="position: absolute; top: 10px; right: 10px; opacity: 0.1;">
-                    <i data-lucide="video" width="60" height="60"></i>
-                </div>
-
-                <h2 style="font-size: 28px; font-weight: bold; margin: 0;">Среда</h2>
-                <p style="color: #71717a; margin-bottom: 20px;">26 ноября</p>
-
-                <div style="margin-bottom: 20px;">
-                    <div style="font-size: 10px; font-weight: bold; color: #52525b; margin-bottom: 5px;">ТИП КОНТЕНТА</div>
-                    <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; border: 1px solid rgba(59, 130, 246, 0.3);">Видео контент</span>
-                </div>
-
-                <div style="margin-bottom: 25px;">
+            <div style="margin-bottom: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div style="font-size: 10px; font-weight: bold; color: #52525b; margin-bottom: 5px;">ЗАДАЧИ</div>
-                    <div style="color: #e4e4e7; font-size: 14px;">Reels, TikTok, Stories</div>
+                    <button class="admin-only" onclick="addTask()" style="background: #333; color: white; border: none; border-radius: 4px; padding: 2px 8px; font-size: 10px;">+ ДОБАВИТЬ</button>
                 </div>
-
-                <button onclick="this.classList.toggle('completed')" style="display: flex; align-items: center; gap: 10px; background: transparent; border: none; color: #71717a; cursor: pointer; transition: 0.2s;">
-                    <div style="width: 20px; height: 20px; border: 2px solid #52525b; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
-                        <div class="inner-dot" style="width: 10px; height: 10px; background: var(--accent); border-radius: 50%; opacity: 0;"></div>
+                <div id="task-list" style="color: #e4e4e7; font-size: 14px;">
                     </div>
-                    <span style="font-size: 12px; font-weight: bold;">Отметить выполнение</span>
-                </button>
             </div>
         </div>
 
-        <div id="plan-schedule-view" class="hidden">
-            <h3 style="font-size: 12px; font-weight: bold; color: #71717a; margin-bottom: 10px;">ИСТОРИЯ СТРИМОВ</h3>
-            <div id="history-list">
-                </div>
-        </div>
+        <h2 style="margin: 30px 0 15px; font-size: 20px;">История смен</h2>
+        <div id="history-list"></div>
     </div>
 
     <div id="tab-cabinet" class="content no-scrollbar">
         <div class="card" style="text-align: center; padding: 30px;">
             <div style="width: 80px; height: 80px; background: #eab308; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #000; font-weight: 900;">K</div>
-            <h2 style="margin: 0 0 5px;">keikiiiii</h2>
-            <span style="color: #eab308; border: 1px solid #eab308; padding: 2px 10px; border-radius: 20px; font-size: 10px; font-weight: bold;">ОПЕРАТОР</span>
+            <h2 style="margin: 0 0 5px;" id="user-name">User</h2>
+            <span id="user-role" style="color: #eab308; border: 1px solid #eab308; padding: 2px 10px; border-radius: 20px; font-size: 10px; font-weight: bold;">ОПЕРАТОР</span>
+            <div style="margin-top: 10px; opacity: 0.3; font-size: 10px; cursor: pointer;" onclick="toggleSimulateAdmin()">[Тест: Сменить роль]</div>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px;">
@@ -236,70 +155,95 @@
             </div>
         </div>
 
-        <h3 style="font-size: 12px; color: #71717a; margin-bottom: 10px; text-transform: uppercase; font-weight: bold;">Учетные записи (Сохраняется)</h3>
-        <div id="creds-container">
-            </div>
+        <h3 style="font-size: 12px; color: #71717a; margin-bottom: 10px; text-transform: uppercase; font-weight: bold;">
+            Учетные записи <span class="admin-only" style="color: #eab308;">(Режим редактирования)</span>
+        </h3>
+        <div id="creds-container"></div>
     </div>
 
     <div id="modal-finish" class="modal-overlay">
         <div class="modal-content">
             <h2 style="margin: 0 0 5px 0;">ИТОГИ СМЕНЫ</h2>
             <p style="font-size: 12px; color: #71717a; margin-bottom: 20px;">Введите заработанные токены</p>
-            
-            <div style="text-align: left; margin-bottom: 15px;">
-                <label style="font-size: 10px; color: #71717a; font-weight: bold;">ТОКЕНЫ (TK)</label>
-                <input type="number" id="finish-tk" placeholder="0" oninput="calcFinishUsd()">
-            </div>
-            
-            <div style="text-align: left; margin-bottom: 20px;">
-                <label style="font-size: 10px; color: #71717a; font-weight: bold;">ДОХОД ($)</label>
-                <input type="text" id="finish-usd" readonly style="background: #222; color: #4ade80; font-weight: bold;">
-            </div>
-
+            <input type="number" id="finish-tk" placeholder="TK (Токены)" oninput="calcFinishUsd()" style="margin-bottom: 10px;">
+            <input type="text" id="finish-usd" readonly style="background: #222; color: #4ade80; font-weight: bold; margin-bottom: 20px;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                <button onclick="closeModal()" style="background: transparent; border: 1px solid #333; color: #888; padding: 12px; border-radius: 8px; cursor: pointer;">ОТМЕНА</button>
-                <button onclick="saveAndStop()" style="background: #eab308; border: none; color: black; font-weight: bold; padding: 12px; border-radius: 8px; cursor: pointer;">СОХРАНИТЬ</button>
+                <button onclick="closeModal()" style="background: transparent; border: 1px solid #333; color: #888; padding: 12px; border-radius: 8px;">ОТМЕНА</button>
+                <button onclick="saveAndStop()" style="background: #eab308; border: none; color: black; font-weight: bold; padding: 12px; border-radius: 8px;">СОХРАНИТЬ</button>
             </div>
         </div>
     </div>
 
     <div class="nav-bar">
-        <button class="nav-item active" onclick="goTab('tab-studio', this)">
-            <i data-lucide="layout-grid"></i> Студия
-        </button>
-        <button class="nav-item" onclick="goTab('tab-plan', this)">
-            <i data-lucide="calendar"></i> План
-        </button>
-        <button class="nav-item" onclick="goTab('tab-cabinet', this)">
-            <i data-lucide="user"></i> Кабинет
-        </button>
+        <button class="nav-item active" onclick="goTab('tab-studio', this)"><i data-lucide="layout-grid"></i> Студия</button>
+        <button class="nav-item" onclick="goTab('tab-plan', this)"><i data-lucide="calendar"></i> План</button>
+        <button class="nav-item" onclick="goTab('tab-cabinet', this)"><i data-lucide="user"></i> Кабинет</button>
     </div>
 
 </div>
 
 <script>
-    // === ДАННЫЕ И ПЕРЕМЕННЫЕ ===
-    let startTime, timerInt;
-    
-    // Загрузка из памяти телефона
+    // === НАСТРОЙКИ ===
+    const ADMIN_IDS = [957837867]; 
+    let isAdmin = false; // По умолчанию
+    let timerInt, startTime;
+
+    // === ДАННЫЕ (LOCAL STORAGE) ===
     let shifts = JSON.parse(localStorage.getItem('shifts')) || [];
-    let credentials = JSON.parse(localStorage.getItem('creds')) || {
-        'Chaturbate': {l:'', p:''}, 'Stripchat': {l:'', p:''}, 
-        'CamSoda': {l:'', p:''}, 'Cum4K': {l:'', p:''}, 'Jasmin': {l:'', p:''}
+    let planData = JSON.parse(localStorage.getItem('planData')) || { type: 'Видео контент', tasks: ['Reels', 'TikTok'] };
+    let creds = JSON.parse(localStorage.getItem('creds')) || {
+        'Chaturbate': {l:'', p:''}, 'Stripchat': {l:'', p:''}, 'CamSoda': {l:'', p:''}, 'Cum4K': {l:'', p:''}, 'Jasmin': {l:'', p:''}
     };
 
-    // Инициализация при старте
+    // === STARTUP ===
     window.onload = () => {
         lucide.createIcons();
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('ru-RU', {weekday:'long', day:'numeric', month:'long'});
+        
+        // Telegram Auth
+        try {
+            const tg = window.Telegram.WebApp;
+            tg.ready(); tg.expand(); tg.setHeaderColor('#000000');
+            const user = tg.initDataUnsafe?.user;
+            if(user) {
+                document.getElementById('user-name').innerText = user.first_name;
+                if(ADMIN_IDS.includes(user.id)) setAdminMode(true);
+            }
+        } catch(e) {}
+
+        renderAll();
+    };
+
+    function renderAll() {
+        renderPlan();
         renderHistory();
         renderStats();
         renderCreds();
-        
-        // Телеграм
-        try { window.Telegram.WebApp.ready(); window.Telegram.WebApp.expand(); } catch(e){}
-    };
+    }
 
-    // === ФУНКЦИОНАЛ СМЕНЫ ===
+    // === АДМИНКА ===
+    function setAdminMode(status) {
+        isAdmin = status;
+        if(isAdmin) {
+            document.body.classList.add('is-admin');
+            document.getElementById('user-role').innerText = "АДМИНИСТРАТОР";
+            document.getElementById('role-label').innerText = "Панель администратора";
+        } else {
+            document.body.classList.remove('is-admin');
+            document.getElementById('user-role').innerText = "ОПЕРАТОР";
+            document.getElementById('role-label').innerText = "Панель оператора";
+        }
+        renderCreds(); // Перерисовать поля (разблокировать/заблокировать)
+        renderPlan();  // Показать кнопки удаления задач
+    }
+
+    // Для теста без телеграма
+    function toggleSimulateAdmin() {
+        setAdminMode(!isAdmin);
+        alert(isAdmin ? "Вы теперь АДМИН" : "Вы теперь ОПЕРАТОР");
+    }
+
+    // === СМЕНА И ТАЙМЕР ===
     function toggleSite(el) { el.classList.toggle('active'); }
 
     function startShift() {
@@ -313,14 +257,13 @@
     }
 
     function requestFinish() {
-        // Останавливаем таймер ВИЗУАЛЬНО
-        clearInterval(timerInt);
+        clearInterval(timerInt); // Остановить таймер
         document.getElementById('modal-finish').classList.add('open');
     }
 
     function closeModal() {
         document.getElementById('modal-finish').classList.remove('open');
-        // Если отменили - таймер должен пойти дальше
+        // Возобновить таймер визуально
         timerInt = setInterval(() => {
             let diff = new Date(new Date() - startTime);
             document.getElementById('timer').innerText = diff.toISOString().substr(11, 8);
@@ -333,67 +276,96 @@
     }
 
     function saveAndStop() {
-        let duration = document.getElementById('timer').innerText;
-        let usd = document.getElementById('finish-usd').value || '0';
-        let tk = document.getElementById('finish-tk').value || '0';
-        
-        // Сохранение в историю
         let shift = {
             date: new Date().toLocaleDateString(),
             time: new Date().toLocaleTimeString().slice(0,5),
-            duration: duration,
-            usd: usd,
-            tk: tk
+            duration: document.getElementById('timer').innerText,
+            usd: document.getElementById('finish-usd').value || '0',
+            tk: document.getElementById('finish-tk').value || '0'
         };
         shifts.unshift(shift);
         localStorage.setItem('shifts', JSON.stringify(shifts));
 
-        // Сброс интерфейса
+        // Reset
         document.getElementById('modal-finish').classList.remove('open');
         document.getElementById('view-active-shift').classList.add('hidden');
         document.getElementById('view-pre-shift').classList.remove('hidden');
         document.getElementById('timer').innerText = "00:00:00";
         document.getElementById('finish-tk').value = "";
         
-        renderHistory();
-        renderStats();
-        alert('Смена сохранена!');
+        renderAll();
     }
 
-    // === ФУНКЦИИ ПЛАНА ===
-    function switchPlanTab(tab) {
-        document.querySelectorAll('.plan-tab').forEach(el => el.classList.remove('active'));
-        event.target.classList.add('active');
-        
-        if (tab === 'content') {
-            document.getElementById('plan-content-view').classList.remove('hidden');
-            document.getElementById('plan-schedule-view').classList.add('hidden');
-        } else {
-            document.getElementById('plan-content-view').classList.add('hidden');
-            document.getElementById('plan-schedule-view').classList.remove('hidden');
+    // === ПЛАН (С правами админа) ===
+    function renderPlan() {
+        document.getElementById('plan-type').innerText = planData.type;
+        let html = '';
+        planData.tasks.forEach((t, i) => {
+            html += `<div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span>• ${t}</span>
+                        ${isAdmin ? `<span onclick="delTask(${i})" style="color:red; cursor:pointer;">✕</span>` : ''}
+                     </div>`;
+        });
+        document.getElementById('task-list').innerHTML = html;
+    }
+
+    function editPlanDetails() {
+        if(!isAdmin) return;
+        let newType = prompt("Изменить тип контента:", planData.type);
+        if(newType) {
+            planData.type = newType;
+            localStorage.setItem('planData', JSON.stringify(planData));
+            renderPlan();
         }
     }
 
+    function addTask() {
+        if(!isAdmin) return;
+        let t = prompt("Новая задача:");
+        if(t) {
+            planData.tasks.push(t);
+            localStorage.setItem('planData', JSON.stringify(planData));
+            renderPlan();
+        }
+    }
+
+    function delTask(i) {
+        if(!isAdmin) return;
+        if(confirm("Удалить задачу?")) {
+            planData.tasks.splice(i, 1);
+            localStorage.setItem('planData', JSON.stringify(planData));
+            renderPlan();
+        }
+    }
+
+    // === ИСТОРИЯ И СТАТИСТИКА ===
     function renderHistory() {
         let html = '';
-        if(shifts.length === 0) html = '<div style="text-align:center; color:#444; font-size:12px; margin-top:20px;">Нет истории</div>';
-        shifts.forEach(s => {
+        if(shifts.length === 0) html = '<div style="text-align:center; color:#444; font-size:12px;">Пусто</div>';
+        shifts.forEach((s, i) => {
             html += `
             <div class="card" style="padding:12px; border-left: 3px solid #eab308; display:flex; justify-content:space-between; align-items:center;">
                 <div>
                     <div style="font-weight:bold; font-size:14px;">${s.date} <span style="color:#666; font-size:12px;">${s.time}</span></div>
-                    <div style="font-size:11px; color:#888;">Время: ${s.duration}</div>
+                    <div style="font-size:11px; color:#888;">${s.duration}</div>
                 </div>
                 <div style="text-align:right;">
                     <div style="color:#4ade80; font-weight:900;">$${s.usd}</div>
-                    <div style="font-size:10px; color:#666;">${s.tk} tk</div>
+                    ${isAdmin ? `<div onclick="delShift(${i})" style="color:red; font-size:10px; cursor:pointer; margin-top:4px;">УДАЛИТЬ</div>` : ''}
                 </div>
             </div>`;
         });
         document.getElementById('history-list').innerHTML = html;
     }
 
-    // === ФУНКЦИИ КАБИНЕТА ===
+    function delShift(i) {
+        if(confirm("Удалить эту смену из истории?")) {
+            shifts.splice(i, 1);
+            localStorage.setItem('shifts', JSON.stringify(shifts));
+            renderAll();
+        }
+    }
+
     function renderStats() {
         document.getElementById('total-shifts').innerText = shifts.length;
         let sum = shifts.reduce((acc, curr) => acc + parseFloat(curr.usd), 0);
@@ -401,20 +373,24 @@
         document.getElementById('balance-display').innerText = sum.toFixed(0);
     }
 
+    // === ПАРОЛИ (Права доступа) ===
     function renderCreds() {
         let html = '';
         for(let site in credentials) {
             html += `
             <div class="card" style="padding:12px;">
                 <div style="font-size:12px; font-weight:bold; color:#eab308; margin-bottom:8px;">${site}</div>
-                <input type="text" placeholder="Логин" value="${credentials[site].l}" oninput="saveCred('${site}', 'l', this.value)" style="margin-bottom:8px; font-size:12px;">
-                <input type="text" placeholder="Пароль" value="${credentials[site].p}" oninput="saveCred('${site}', 'p', this.value)" style="font-size:12px;">
+                <input type="text" placeholder="Логин" value="${credentials[site].l}" 
+                       ${isAdmin ? '' : 'disabled'} oninput="saveCred('${site}', 'l', this.value)" style="margin-bottom:8px; font-size:12px;">
+                <input type="text" placeholder="Пароль" value="${credentials[site].p}" 
+                       ${isAdmin ? '' : 'disabled'} oninput="saveCred('${site}', 'p', this.value)" style="font-size:12px;">
             </div>`;
         }
         document.getElementById('creds-container').innerHTML = html;
     }
 
     function saveCred(site, type, val) {
+        if(!isAdmin) return; // Защита
         credentials[site][type] = val;
         localStorage.setItem('creds', JSON.stringify(credentials));
     }
@@ -427,12 +403,6 @@
         btn.classList.add('active');
     }
 </script>
-
-<style>
-    /* Анимация кнопки выполнения */
-    button.completed .inner-dot { opacity: 1 !important; }
-    button.completed { color: #eab308 !important; }
-</style>
 
 </body>
 </html>
