@@ -25,7 +25,7 @@
         #app-container {
             width: 100%;
             height: 100%;
-            max-width: 480px; /* Максимальная ширина как у телефона */
+            max-width: 480px;
             background-color: #18181b;
             display: flex;
             flex-direction: column;
@@ -56,7 +56,7 @@
             display: none; 
             height: 100%; 
             overflow-y: auto; 
-            padding-bottom: 100px; /* Место под меню */
+            padding-bottom: 100px;
         }
         .tab-content.active { display: block; }
 
@@ -64,11 +64,10 @@
         .nav-btn { color: #71717a; transition: all 0.2s; }
         .nav-btn.active { color: #eab308; transform: translateY(-3px); }
         .nav-btn.active svg { stroke: #eab308; stroke-width: 2.5; }
+        
+        /* Анимация нажатия */
+        .btn-press:active { transform: scale(0.96); }
 
-        /* Чекбокс */
-        .check-row { transition: background 0.2s; }
-        .check-row.active .check-box { background-color: #eab308; border-color: #eab308; }
-        .check-row.active .check-icon { display: block; }
     </style>
 </head>
 <body>
@@ -77,35 +76,4 @@
         
         <main class="flex-1 overflow-hidden relative">
             
-            <div id="view-studio" class="tab-content active p-4 space-y-6">
-                
-                <div class="glass p-4 rounded-2xl flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-zinc-800 rounded-full flex items-center justify-center border border-zinc-700 font-bold text-lg">P</div>
-                        <div>
-                            <h2 class="font-bold text-lg leading-none">PRIMA</h2>
-                            <span class="text-xs text-zinc-400">Панель оператора</span>
-                        </div>
-                    </div>
-                    <button onclick="sendPanic()" class="bg-red-900/20 border border-red-500/50 text-red-500 w-10 h-10 rounded-xl flex items-center justify-center active:scale-95">⚠️</button>
-                </div>
-
-                <div id="pre-shift-block" class="space-y-6">
-                    <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="text-xs text-zinc-400 font-bold uppercase">Цель ($)</span>
-                        </div>
-                        <input type="number" id="goal-input" placeholder="100" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl p-3 text-white text-center text-xl font-bold outline-none focus:border-yellow-500" oninput="updateGoal()">
-                    </div>
-
-                    <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 space-y-2">
-                        <h3 class="text-xs text-zinc-500 uppercase font-bold mb-2">Проверка готовности</h3>
-                        <div class="check-row flex items-center gap-3 cursor-pointer p-3 rounded-lg bg-zinc-950 border border-zinc-800" onclick="toggleCheck(this)">
-                            <div class="check-box w-5 h-5 rounded border-2 border-zinc-600 flex items-center justify-center"><svg class="check-icon hidden w-3 h-3 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><polyline points="20 6 9 17 4 12"/></svg></div>
-                            <span class="text-sm font-medium">VPN стабилен</span>
-                        </div>
-                        <div class="check-row flex items-center gap-3 cursor-pointer p-3 rounded-lg bg-zinc-950 border border-zinc-800" onclick="toggleCheck(this)">
-                            <div class="check-box w-5 h-5 rounded border-2 border-zinc-600 flex items-center justify-center"><svg class="check-icon hidden w-3 h-3 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4"><polyline points="20 6 9 17 4 12"/></svg></div>
-                            <span class="text-sm font-medium">OBS и Звук</span>
-                        </div>
-                        <div class="check-row flex items-center gap-3 cursor-pointer p-3 rounded-lg bg-zinc-950 border border-zinc-800" onclick="toggleCheck
+            <div id="view-
